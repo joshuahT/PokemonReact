@@ -12,6 +12,11 @@ const Pokedex = () => {
         e.preventDefault();
         let randomNum = (Math.floor(Math.random() * 151)) + 1;
         setImageUrl(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${randomNum}.png`);
+        res.then((response) => {
+            response.json().then((response1) => {
+                console.log(response1);
+            })
+        })
 
     }
     return (
