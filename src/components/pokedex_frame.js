@@ -3,20 +3,28 @@ import React, { useState, useEffect } from 'react';
 
 
 const Pokedex = () => {
+    let randomNum = (Math.floor(Math.random() * 150)) + 1;
 
-    const [imageUrl, setImageUrl] = useState();
 
-    const res = fetch("http://localhost:8080/hello");
+
+
+    const [imageUrl, setImageUrl] = useState(null);
+
+
+
 
     const handleClick = (e) => {
+        const res = fetch(`http://localhost:8080/pokemon/${randomNum}`);
         e.preventDefault();
-        let randomNum = (Math.floor(Math.random() * 151)) + 1;
-        setImageUrl(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${randomNum}.png`);
-        res.then((response) => {
-            response.json().then((response1) => {
-                console.log(response1);
-            })
+        res.then((promise) => {
+            promise.json()
+                .then((response) => {
+                    console.log(response['url'], response['name']);
+                    setImageUrl(response['url']);
+
+                })
         })
+
 
     }
     return (
